@@ -1,11 +1,8 @@
-<template>
-  <div class="app-main-layout">
-
-    <!-- <Navbar @click= "isOpen = !isOpen" /> -->
+<!-- <template>
   <nav class="navbar orange lighten-1">
     <div class="nav-wrapper">
       <div class="navbar-left">
-        <a href="#" @click="isOpen = !isOpen">
+        <a href="#" @click.prevent="$emit('click')">
           <i class="material-icons black-text">dehaze</i>
         </a>
         <span class="black-text">12.12.12</span>
@@ -39,35 +36,4 @@
       </ul>
     </div>
   </nav>
-
-    <Sidebar :isOpen="isOpen"/>
-
-    <main class="app-content open" :class="{full: !isOpen}">
-      <div class="app-page">
-        <router-view />
-      </div>
-    </main>
-
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large blue" href="#">
-        <i class="large material-icons">add</i>
-      </a>
-    </div>
-  </div>
-</template>
-
-<script>
-import Navbar from '@/components/app/Navbar.vue'
-import Sidebar from '@/components/app/Sidebar.vue'
-
-export default {
-  name: 'main-layout',
-  data: () => ({
-    isOpen: true
-  }),
-  components: {
-    Navbar,
-    Sidebar,
-  }
-}
-</script>
+</template> -->
