@@ -1,36 +1,25 @@
 <template>
-  <form class="card auth-card">
+  <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
-        <input
-            id="email"
-            type="text"
-        >
+        <input id="email" type="text" class="validate" v-model="email" />
+        <small class="helper-text invalid" v-if="v$.email.$error">{{ v$.email.$errors[0].$message }}</small>
         <label for="email">Email</label>
-        <small class="helper-text invalid">Email</small>
       </div>
       <div class="input-field">
-        <input
-            id="password"
-            type="password"
-            class="validate"
-        >
+        <input id="password" type="password" class="validate" v-model="password" />
+        <small class="helper-text invalid" v-if="v$.password.$error">{{ v$.password.$errors[0].$message }}</small>
         <label for="password">Пароль</label>
-        <small class="helper-text invalid">Password</small>
       </div>
       <div class="input-field">
-        <input
-            id="name"
-            type="text"
-            class="validate"
-        >
+        <input id="name" type="text" class="validate" v-model="name" />
+        <small class="helper-text invalid" v-if="v$.name.$error">Введите ваше имя</small>
         <label for="name">Имя</label>
-        <small class="helper-text invalid">Name</small>
       </div>
       <p>
         <label>
-          <input type="checkbox" />
+          <input type="checkbox" v-model="agree" />
           <span>С правилами согласен</span>
         </label>
       </p>
@@ -48,8 +37,46 @@
 
       <p class="center">
         Уже есть аккаунт?
-        <a href="/">Войти!</a>
+        <router-link to="/login">Войти!</router-link>
       </p>
     </div>
   </form>
 </template>
+
+<script>
+import useValidate from '@vuelidate/core';
+import { required, email, minLength } from '@vuelidate/validators';
+
+export default {
+   name: 'register',
+    data: () => ({
+      v$: useValidate(),
+      email: '',
+      password: '',
+      name: '',
+      agree: false
+    }),
+    validations: {
+      email: {email, required},
+      password: {required, minLength: minLength(6)},
+      name: {required},
+      agree: {checked: v => v}
+    },
+    methods: {
+      submitHandler() {
+        this.v$.$validate();
+
+        if (!this.v$.$error) {
+
+          const formData = {
+            email: this.email,
+            password: this.password,
+            name: this.name
+          }
+          console.log(formData)
+          this.$router.push('/');
+        }
+      }
+    }
+}
+</script>
